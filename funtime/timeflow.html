@@ -1,0 +1,82 @@
+<html lang="zh" style="background-color: blueviolet;">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="blueviolet">
+    <title>时间漂浮</title>
+
+    <style>
+        @font-face {
+            font-family: YouYuan;
+            src: url(../font/ZiXinFangYunYuanTi-2.ttf);
+        }
+
+        #timeGroup {
+            font-family: YouYuan;
+            font-size: 50px;
+            color: aliceblue;
+            text-align: center;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="timeGroup">
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
+</body>
+
+<script>
+    function showTime() {
+        var myDate = new Date();
+        year = myDate.getFullYear();
+        month = format(myDate.getMonth() + 1);
+        day = format(myDate.getDate());
+        hour = format(myDate.getHours());
+        minute = format(myDate.getMinutes());
+        second = format(myDate.getSeconds());
+        document.getElementById("date").innerHTML = year + "年" + month + "月" + day + "日";
+        document.getElementById("time").innerHTML = hour + ":" + minute + ":" + second;
+    }
+    function format(num) {
+        if (num < 10) {
+            result = "0" + num;
+        } else {
+            result = num;
+        }
+        return result;
+    }
+    function flow(xDirection, yDirection) {
+        v = 0.5;
+        e = document.getElementById("timeGroup")
+        x = parseFloat(e.style.left);
+        y = parseFloat(e.style.top);
+        if (x + xDirection * v > 60 || x + xDirection * v < 0) {
+            xDirection *= -1;
+        }
+        if (y + yDirection * v > 60 || y + yDirection * v < 0) {
+            yDirection *= -1;
+        }
+        e.style.left = x + xDirection * v + "%";
+        e.style.top = y + yDirection * v + "%";
+    }
+    function changeDirection(Array) {
+        Array[0] = Math.random() * 2 - 1;
+        Array[1] = Math.random() * 2 - 1;
+    }
+    var direction = new Array();
+    changeDirection(direction);
+    x = Math.random();
+    y = Math.random();
+    e = document.getElementById("timeGroup")
+    e.style.top = x * 100 + "%";
+    e.style.left = y * 100 + "%";
+    showTime();
+    setInterval("showTime()", 1000);
+    setInterval("flow(direction[0],direction[1])", 10);
+    setInterval("changeDirection(direction)", 5000);
+</script>
+
+</html>

@@ -1,0 +1,71 @@
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no"/>
+	<!--移动端适配-->
+	<meta name="theme-color" content="hsl(167, 90%, 12%)" />
+	<!--Chrome 特性，使标题栏颜色与网页主题色相同（Chrome特性）-->
+	<title>时间居中</title>
+	<style>
+		@font-face {
+			font-family: YouYuan;
+			src: url(../font/ZiXinFangYunYuanTi-2.ttf);
+		}
+
+		body,
+		html {
+			background-color: hsl(167, 90%, 12%);
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		div {
+			font-family: YouYuan;
+			font-size: 50px;
+			color: aliceblue;
+		}
+	</style>
+</head>
+
+
+
+<body>
+	<div id="date"></div>
+	<div id="time"></div>
+</body>
+
+<script>
+	function showTime() {
+		var myDate = new Date();
+		year = myDate.getFullYear();
+		month = format(myDate.getMonth() + 1);
+		day = format(myDate.getDate());
+		hour = format(myDate.getHours());
+		minute = format(myDate.getMinutes());
+		second = format(myDate.getSeconds());
+		document.getElementById("date").innerHTML = year + "年" + month + "月" + day + "日";
+		document.getElementById("time").innerHTML = hour + ":" + minute + ":" + second;
+	}
+	function format(num) {
+		if (num < 10) {
+			result = "0" + num;
+		} else {
+			result = num;
+		}
+		return result;
+	}
+	showTime();
+	setInterval("showTime()", 1000);
+</script>
+
+</html>
